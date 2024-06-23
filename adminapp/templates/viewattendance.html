@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+{% extends 'adminhome.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+            <h1 style="color:rgb(28, 4, 92);font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;padding-top:10px;text-align:center;">
+           <u>VIEW ATTENDANCE</u></h1></div>
+    
+
+           <div class="row" style="margin-bottom:30px;margin-top:50px;margin-left:100px;">
+
+            <div class="col-xl-3 mb-30">
+                <a href="{% url 'attendance' %}"><div style="border:1px solid black;height:70px;border-radius:10px;background-color:purple;
+                margin:auto;padding:10px;margin-left:60px;"><h5 style="text-align:center;color:white;padding-top:10px;">Add Attendance</h5></div></a>
+            </div>
+    
+				<div id="div1" class="col-xl-3 mb-30" style="margin-left:-25px;">
+					<h5 style="border:1px solid black;border-radius:10px;background-color:purple;
+					margin:auto;padding:20px;margin-left:60px;color:white;text-align:center;">View By Date</h5>
+				</div>
+				<div id="div2" class="col-xl-3 mb-30">
+					<div style="border:1px solid black;border-radius:10px;background-color:purple;margin:auto;padding:10px;
+                    margin-left:60px;height: 70px;"><h5 style="text-align:center;color:white;">View By Employee</h5></div>
+				</div>
+
+    </div>
+    <div id="div4" style="display:none; margin-left:100px;margin-bottom:100px;">
+        <form method="post" action="{% url 'viewbydate' %}">
+    {% csrf_token %}
+            <h5 style="margin-left:100px;">Select Date Range : </h5><br>
+    <input type="date" name="dt1" class="form-field"><br>
+    <input type="date" name="dt2" class="form-field"><br>
+            <select name="ename" class="form-field">
+        <option>
+            Select Employee Name
+        </option>
+         {% for i in emp %}
+        <option>{{i.Empname}}</option>
+        {% endfor %}
+    </select>
+
+<button id="btn1" type="submit" class="inpbutton" style="margin-top:50px;  background-color: purple;height:50px;">view</button>
+        </form></div>
+
+<div id="div5" style="display:none;margin-left:100px;margin-bottom:100px;">
+
+        <form method="post" action="{% url 'viewbyemp' %}">
+    {% csrf_token %}
+
+    <select name="ename" class="form-field">
+        <option>
+            Select Employee Name
+        </option>
+         {% for i in emp %}
+        <option>{{i.Empname}}</option>
+        {% endfor %}
+    </select>
+
+<button type="submit" style="margin-top:50px;  background-color: purple;height:50px;" class="inpbutton">view</button>
+        </form></div>
+
+        <table width="75%" style="margin-left:150px;border:1px solid black;margin-bottom:100px;">
+            <tr style="border:1px solid black;">
+                <td ><h5 style="color:brown;">Date</h5></td>
+                <td ><h5 style="color:brown;">Employee Name</h5></td>
+                <td><h5 style="color:brown;">Attendance Status</h5></td>
+        
+            </tr>
+        
+        {% for i in atn %}
+            <tr style="border:1px solid black;">
+        
+                <td><h6>{{i.Date}}</h6></td>
+                <td><h6>{{i.Empname}}</h6></td>
+                <td><h6>{{i.Attendance}}</h6></td>
+                <td>  <a href="{% url 'atndelete' dataid=i.id %}" style="margin-left:20px;">delete</a>
+                </td>
+        
+            </tr>
+        {% endfor %}
+        </table>
+        
+        <a href="{% url 'viewatn' %}"> <button type="button" style="margin-bottom:100px;
+        background-color:blue;color:white;width:100px;height:50px;margin-left:430px;">BACK</button></a>
+        
+
+ <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+    <script>
+        $(document).ready(function(){
+           $("#div1").click(function(){
+                $("#div4").fadeToggle(2000)
+                $("#div2").hide()
+                $("#div3").hide()
+            })
+
+            $("#div2").click(function(){
+                $("#div5").fadeToggle(2000)
+                $("#div1").hide()
+                $("#div3").hide()
+            })
+
+
+            })
+
+    </script>
+</body>
+<style>
+td{
+    height:60px;
+    width:200px;
+    text-align:center;
+
+}
+
+.form-field{
+    width:500px;
+    margin-bottom:12px;
+    margin-top:12px;
+    height:50px;
+    border:2px solid black;
+    border-radius:10px;
+    margin-left:-150px;
+    background-color:white;
+    padding:10px;
+    font-size:16pt;
+    font-family: Arial;
+    font-weight:500;
+    margin-left:100px;
+
+
+}
+.inpbutton {
+  padding: 12px 10px;
+  width:400px;
+  height: 60px;
+  border: 0;
+  border-radius: 25px;
+  color: #fff;
+  letter-spacing: 1px;
+  font-family: "Rubik", sans-serif;
+  margin-left: 200px;
+
+}
+.btn1{
+  padding: 12px 10px;
+  background-color:rgb(5, 5, 117);
+  border: 2px solid black;
+  color: #f4f3f7;
+  font-weight: bold;
+  font-family: "Rubik", sans-serif;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 150px;
+  margin-left: 450px;
+
+}
+
+</style>
+
+</html>
+{% endblock %}

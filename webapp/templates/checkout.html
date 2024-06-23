@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h4 style="text-align:center;">PAYMENT SUCCESSFUL... PROCEED TO CONFIRM ORDER...</h4>
+
+
+
+                 <h4 style="text-align:center; font-size:28pt; color:#000066;margin-top:50px;">
+                     Confirm Order</h4><br><br>
+  <div style="margin-left:430px;">
+<form method="post" action="{% url 'placeorder' %}">
+    {% csrf_token %}
+
+                                    <div class="checkout__input">
+                                        {% if request.session.Username %}
+                                        <p>Name</p>
+                                        <input type="hidden" name="total" value="{{totalprice}}">
+                                        <input type="text" required name="name" value="{{request.session.Username}}" style="color:black;font-size:14pt;width:500px;border:1px solid black;">
+                                        {% endif %}
+
+                                    </div>
+
+
+
+                            <div class="checkout__input">
+                                <p>Address</p>
+                                <textarea name="address" required style="color:black;font-size:14pt;width:500px;border:1px solid black;" placeholder="Street Address" class="checkout__input__add">{{i.Address}} </textarea>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Pin Code</p>
+                                <input name="pin" required type="text" style="color:black;font-size:14pt;width:500px;border:1px solid black;">
+                            </div>
+
+                                    <div class="checkout__input">
+                                        <p>Phone</p>
+                                        <input name="phone" required value="{{ph}}" type="tel" pattern="[0-9]{10}" style="color:black;font-size:14pt;width:500px;border:1px solid black;">
+                                    </div>
+
+                                    <div class="checkout__input">
+                                        <p>Email</p>
+                                        <input required name="email" value="{{em}}" type="text" style="color:black;font-size:14pt;width:500px;
+                                        border:1px solid black;margin-bottom:50px;">
+                                    </div>
+
+
+
+
+
+                                <button type="submit" style="width:300px;height:50px;background-color:green;margin-left:110px;color:white;margin-top:20px;"
+                                        class="site-btn">PLACE ORDER</button>
+
+
+
+
+
+
+</form>
+  </div>
+
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+      {% for i in messages %}
+           {% if i.tags == 'warning' %}
+               <script>
+                    swal('{{i}}','','warning');
+               </script>
+           {% elif i.tags == 'error' %}
+               <script>
+                    swal('{{i}}','','error');
+               </script>
+           {% else %}
+               <script>
+                    swal('{{i}}','','success');
+               </script>
+           {% endif %}
+        {% endfor %}
+      {% endif %}
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("button").mouseenter(function(){
+                $(this).css("background-color","blue")
+
+            })
+            $("button").mouseleave(function(){
+                $(this).css("background-color","green")
+            })
+            $(".div1").mouseenter(function(){
+                $(this).css("background-color","orange")
+            })
+            $(".div1").mouseleave(function(){
+                $(this).css("background-color","#fff")
+            })
+        })
+    </script>
+
+</body>
+</html>
+{% endblock %}

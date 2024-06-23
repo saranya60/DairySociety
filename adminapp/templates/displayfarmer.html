@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% extends 'adminhome.html' %}
+{% load static %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+  <div class="container mt-5">
+    
+    <h1><u>FARMER DETAILS</u></h1><br>
+  <center><a href="{% url 'farmerpage' %}">  <button class=btn1 type="button">ADD FARMER</button></a></center>
+
+    <div class="row">
+        {% for i in data %}
+            <div class="col-md-6">
+                <div class="card mb-4">
+                   <center> <img src="{{ i.Image.url }}" width="200px" height="200px"></center>
+                    <div class="card-body">
+                       <table width="100%">
+                        
+                       <tr><td>CardNo :</td><td> {{ i.Cardno }}</td></tr>
+                       <tr><td>Name :</td>
+                        <td> {{ i.Name }}</td></tr> 
+                        <tr><td>Address :</td><td>{{ i.Address }}</td></tr>
+                        <tr><td>Gender :</td><td> {{ i.Gender }}</td></tr>
+                        <tr><td>DOB :</td><td> {{ i.Dateofbirth }}</td></tr>
+                        <tr><td>Mobile :</td><td> {{ i.Mobile }}</td></tr>
+                        <tr><td>Email :</td><td> {{ i.Email }}</td></tr>
+                      
+                        
+
+</table>
+<center><div class="a1"><a style="color: black;" href="{% url 'editfarmer' dataid=i.Mobile %}" >EDIT </a></div>
+<div class="a2"><a href="{% url 'farmerdelete' dataid=i.Mobile %}" >DELETE</a></div></center>
+
+</div></div></div>
+{% endfor %}
+</div></div>
+                        
+</body>
+<style>
+h1{
+    color:rgb(28, 4, 92);
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-align:center;
+    border-radius:30px;
+
+}
+.btn1 {
+  padding: 12px 10px;
+  background-color:rgb(5, 5, 117);
+  border: 2px solid black;
+  color: #f4f3f7;
+  font-weight: bold;
+  font-family: "Rubik", sans-serif;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 150px;
+
+}
+td{
+    text-align: center;
+    font-weight: bold;
+    height: 40px;
+    width: 100px;
+}
+.a1{
+    background-color: green;
+    height: 30px;
+    border: 2px solid black;
+    width: 100px;
+    margin-bottom: 10px;
+
+}
+.a2{
+    background-color: red;
+    width: 100px;
+    height: 30px;
+    border: 2px solid black;
+
+}
+</style>
+
+</html>
+{% endblock %}

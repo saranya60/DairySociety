@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% extends 'adminhome.html' %}
+{% load static %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container centered">
+    <form method="post" action="{% url 'send_email' dataid=ms.id %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Email</td>
+            <td>
+        <input class="form-field" name="email" value="{{ms.Email}}" type="text"></td></tr>
+        <tr><td>Subject</td>
+            <td>
+        <input class="form-field" type="text" name="sub" placeholder="Subject"></td></tr>
+<tr><td>Message</td>
+        <td><textarea style="height: 100px;" class="form-field" name="message" placeholder="Your message"></textarea></td></tr>
+        </table>
+
+        <button class="b1">Send</button>
+    </form>
+    </div>
+
+    
+</body>
+<style>
+    td{
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .form-field{
+    width:500px;
+    margin-bottom:12px;
+    margin-top:12px;
+    height:50px;
+    border:2px solid black;
+    border-radius:10px;
+    margin-left:-150px;
+    background-color:white;
+    padding:10px;
+    font-size:16pt;
+    font-family: Arial;
+    font-weight:500;
+    margin-left:100px;
+
+
+}
+.b1{
+    background-color: rgb(39, 5, 94);
+    color: rgb(248, 244, 244);
+    cursor: pointer;
+    margin-left: 180px;
+    margin-top: 20px;
+    width: 500px;
+    height: 40px;
+    font-size:16pt;
+}
+.b1:hover{
+    background-color: brown;
+}
+.container {
+            display: grid;
+            justify-content: center; /* Centers horizontally */
+            height: 100vh;          /* Full viewport height */
+        }
+
+        .centered {
+            width: 200px;
+            height: 100px;
+        }
+    </style>
+</html>
+{% endblock %}

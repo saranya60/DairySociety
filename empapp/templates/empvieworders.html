@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+{% extends 'saleshome.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+           <div class="container mt-5">
+    
+            <h1><u>VIEW ORDERS</u></h1><br>
+ 
+   
+   <button     
+        
+            <div class="row">
+                {% for i in data %}
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                               <table width="100%">
+                                <tr><td>Date :</td>
+                                    <td> {{ i.Date }}</td></tr>
+     
+                                <tr><td>Name :</td>
+                               <td> {{ i.Name }}</td></tr>
+                                <tr><td>Address :</td><td>{{ i.Address }}</td></tr>
+                                <tr><td>Pin :</td><td> {{ i.Pin }}</td></tr>
+                                <tr><td>Mobile :</td><td> {{ i.Mobile }}</td></tr>
+                                <tr><td>Email :</td><td> {{ i.Email }}</td></tr>
+                                <tr><td>Product :</td><td> {{ i.Product }}</td></tr>
+                                <tr><td>Quantity :</td><td> {{ i.Quantity }}</td></tr>
+
+                                <tr><td>Total :</td><td> {{ i.Totalprice }}</td></tr>
+                              
+                                <tr> 
+                                    <td>
+                                    <form method="post" action="{% url 'savestatus' dataid=i.id %}">
+                                    {% csrf_token %}
+                                        <input type="date" required name="date" style="margin-bottom:10px;">
+                        
+                                        <select name="status" style="font-weight:bold;">
+                                            <option>{{i.Status}}</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Delivered">Delivered</option>
+                                </select>
+                                        <input type="text" name="name" style="display:none;" value="{{i.Name}}">
+                                        <input type="text" name="total" value="{{i.Subtotal}}" style="display:none;">
+                                        <input type="text" name="address" value="{{i.Address}}" style="display:none;">
+                                        <input type="text" name="mobile" value="{{i.Mobile}}" style="display:none;">
+                        
+                                        <button type="submit" style="width:60px;background-color:green;">OK</button>
+                                    </form>
+                                </td></tr>
+                        
+        
+        </table>
+        
+        </div></div></div>
+        {% endfor %}
+        </div></div>
+        
+
+
+
+
+
+
+
+</body>
+<style>
+h1{
+    color:rgb(28, 4, 92);
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-align:center;
+    border-radius:30px;
+    font-size: xx-large;
+
+}
+.btn12 {
+  padding: 12px 10px;
+  background-color:rgb(5, 5, 117);
+  border: 2px solid black;
+  color: #f4f3f7;
+  font-weight: bold;
+  font-family: "Rubik", sans-serif;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 150px;
+
+}
+td{
+    font-weight: bold;
+    height: 40px;
+    width: 100px;
+    color: rgb(15, 15, 15);
+}
+.a1{
+    background-color: green;
+    height: 30px;
+    border: 2px solid black;
+    width: 100px;
+    margin-bottom: 10px;
+
+}
+.a2{
+    background-color: red;
+    width: 100px;
+    height: 30px;
+    border: 2px solid black;
+
+}
+
+</style>
+</html>
+{% endblock %}
